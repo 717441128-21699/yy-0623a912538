@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import classnames from 'classnames';
 import { useAppStore } from '@/store/useAppStore';
-import { mockRankings, mockLearningReminders } from '@/data/rankings';
+import { mockLearningReminders } from '@/data/rankings';
 import RankItem from '@/components/RankItem';
 import styles from './index.module.scss';
 
@@ -16,7 +16,7 @@ const typeIconMap: Record<string, string> = {
 }
 
 const RankPage: React.FC = () => {
-  const { myPoints } = useAppStore()
+  const { myPoints, rankings } = useAppStore()
   const [tab, setTab] = useState<TabType>('rank')
 
   const handleFeedback = () => {
@@ -57,7 +57,7 @@ const RankPage: React.FC = () => {
 
       {tab === 'rank' && (
         <View className={styles.rankList}>
-          {mockRankings.map(item => (
+          {rankings.map(item => (
             <RankItem key={item.id} item={item} isMe={item.name === '小李'} />
           ))}
         </View>

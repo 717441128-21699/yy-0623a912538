@@ -129,7 +129,7 @@ const TodayPage: React.FC = () => {
               {displayTasks.map(task => (
                 <View key={task.id} className={styles.delayCard}>
                   <View className={styles.delayCustomer}>
-                    <Text className={styles.delayName}>{task.customerName} · {task.bodyPart}</Text>
+                    <Text className={styles.delayName}>{task.customerName} · {task.treatmentArea}</Text>
                     <View className={styles.delayBadge}>
                       <Text className={styles.delayBadgeText}>延误 {task.delayMinutes || 10} 分钟</Text>
                     </View>

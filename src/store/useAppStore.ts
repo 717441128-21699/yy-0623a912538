@@ -1,10 +1,10 @@
 import { create } from 'zustand'
-import { TaskItem, PrepStep, HandoverItem, SwapRequest, FeedbackItem } from '@/types'
+import { TaskItem, PrepStep, HandoverItem, SwapRequest, FeedbackItem, RankItem } from '@/types'
 import { mockTasks } from '@/data/tasks'
 import { mockPrepSteps } from '@/data/preparations'
 import { mockHandovers } from '@/data/handovers'
 import { mockSwaps } from '@/data/swaps'
-import { mockFeedbacks } from '@/data/rankings'
+import { mockRankings, mockFeedbacks } from '@/data/rankings'
 
 interface AppState {
   tasks: TaskItem[]
@@ -12,6 +12,7 @@ interface AppState {
   handovers: HandoverItem[]
   swaps: SwapRequest[]
   feedbacks: FeedbackItem[]
+  rankings: RankItem[]
   myPoints: number
   claimedPoints: Set<string>
   prepConfirmed: boolean
@@ -32,12 +33,25 @@ interface AppState {
 const initialFeedbacks: FeedbackItem[] = mockFeedbacks.map(f => ({ ...f, likedByMe: false }))
 const initialHandovers: HandoverItem[] = mockHandovers.map(h => ({ ...h, energyInput: '' }))
 
+const syncRankings = (rankings: RankItem[], myPoints: number): RankItem[] =>
+  rankings.map(r => r.name === '小李' ? { ...r, points: myPoints } : r)
+
+const addPoints = (state: { myPoints: number; rankings: RankItem[]; claimedPoints: Set<string> }, delta: number, key: string) => {
+  const newPoints = state.myPoints + delta
+  return {
+    myPoints: newPoints,
+    rankings: syncRankings(state.rankings, newPoints),
+    claimedPoints: new Set([...state.claimedPoints, key])
+  }
+}
+
 export const useAppStore = create<AppState>((set, get) => ({
   tasks: mockTasks,
   prepSteps: mockPrepSteps,
   handovers: initialHandovers,
   swaps: mockSwaps,
   feedbacks: initialFeedbacks,
+  rankings: mockRankings,
   myPoints: 2450,
   claimedPoints: new Set<string>(),
   prepConfirmed: false,
@@ -58,9 +72,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     const state = get()
     const allDone = state.prepSteps.every(s => s.completed)
     if (!allDone) return false
-    if (state.prepConfirmed) {
-      return false
-    }
+    if (state.prepConfirmed) return false
     const key = 'prep_confirm'
     if (state.claimedPoints.has(key)) {
       set({ prepConfirmed: true })
@@ -68,8 +80,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     }
     set({
       prepConfirmed: true,
-      myPoints: state.myPoints + 20,
-      claimedPoints: new Set([...state.claimedPoints, key])
+      ...addPoints(state, 20, key)
     })
     return true
   },
@@ -86,38 +97,8 @@ export const useAppStore = create<AppState>((set, get) => ({
       .every(s => s.completed)
     const wouldComplete = allOtherDone && !step.completed
 
-    if (wouldComplete) {
-      const key = `handover_complete_${handoverId}`
-      if (state.claimedPoints.has(key)) {
-        set((s) => ({
-          handovers: s.handovers.map((h) => {
-            if (h.id !== handoverId) return h
-            const updatedSteps = h.steps.map((st) =>
-              st.id === stepId ? { ...st, completed: !st.completed } : st
-            )
-            const allCompleted = updatedSteps.every((st) => st.completed)
-            return { ...h, steps: updatedSteps, isCompleted: allCompleted }
-          })
-        }))
-        return true
-      }
-      set((s) => ({
-        handovers: s.handovers.map((h) => {
-          if (h.id !== handoverId) return h
-          const updatedSteps = h.steps.map((st) =>
-            st.id === stepId ? { ...st, completed: !st.completed } : st
-          )
-          const allCompleted = updatedSteps.every((st) => st.completed)
-          return { ...h, steps: updatedSteps, isCompleted: allCompleted }
-        }),
-        myPoints: s.myPoints + 10,
-        claimedPoints: new Set([...s.claimedPoints, key])
-      }))
-      return true
-    }
-
-    set((s) => ({
-      handovers: s.handovers.map((h) => {
+    const updateHandover = (s: typeof state) =>
+      s.handovers.map((h) => {
         if (h.id !== handoverId) return h
         const updatedSteps = h.steps.map((st) =>
           st.id === stepId ? { ...st, completed: !st.completed } : st
@@ -125,7 +106,21 @@ export const useAppStore = create<AppState>((set, get) => ({
         const allCompleted = updatedSteps.every((st) => st.completed)
         return { ...h, steps: updatedSteps, isCompleted: allCompleted }
       })
-    }))
+
+    if (wouldComplete) {
+      const key = `handover_complete_${handoverId}`
+      if (state.claimedPoints.has(key)) {
+        set((s) => ({ handovers: updateHandover(s) }))
+        return true
+      }
+      set((s) => ({
+        handovers: updateHandover(s),
+        ...addPoints(s, 10, key)
+      }))
+      return true
+    }
+
+    set((s) => ({ handovers: updateHandover(s) }))
     return true
   },
 
@@ -137,8 +132,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     const key = `handover_complete_${handoverId}`
     if (state.claimedPoints.has(key)) return false
     set((s) => ({
-      myPoints: s.myPoints + 10,
-      claimedPoints: new Set([...s.claimedPoints, key])
+      ...addPoints(s, 10, key)
     }))
     return true
   },
@@ -171,14 +165,12 @@ export const useAppStore = create<AppState>((set, get) => ({
             : st
         )
         const allCompleted = updatedSteps.every((st) => st.completed)
-        const wasCompleted = h.isCompleted
-        return { ...h, steps: updatedSteps, energyInput: energy, isCompleted: allCompleted, ...(wasCompleted && !allCompleted ? { isCompleted: allCompleted } : {}) }
+        return { ...h, steps: updatedSteps, energyInput: energy, isCompleted: allCompleted }
       }),
       tasks: s.tasks.map(t =>
         t.id === handover.taskRef ? { ...t, energyLevel: energy } : t
       ),
-      myPoints: s.myPoints + 5,
-      claimedPoints: new Set([...s.claimedPoints, key])
+      ...addPoints(s, 5, key)
     }))
     return true
   },
@@ -193,8 +185,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       swaps: s.swaps.map((sr) =>
         sr.id === id ? { ...sr, status: 'taken' as const, takerName } : sr
       ),
-      myPoints: s.myPoints + swap.points,
-      claimedPoints: new Set([...s.claimedPoints, key])
+      ...addPoints(s, swap.points, key)
     }))
     return true
   },

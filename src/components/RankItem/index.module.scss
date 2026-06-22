@@ -1,0 +1,90 @@
+@use '@/styles/variables.scss' as *;
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-sm;
+}
+
+.isMe {
+  background: rgba(0, 201, 167, 0.06);
+  border: 2rpx solid rgba(0, 201, 167, 0.2);
+}
+
+.rankArea {
+  width: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-sm;
+}
+
+.rankIcon {
+  font-size: 40rpx;
+}
+
+.rankNumber {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: $radius-round;
+  background: $color-bg-page;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rankText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  font-weight: $font-weight-semibold;
+}
+
+.avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-round;
+  margin-right: $spacing-md;
+  background: $color-bg-page;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  @include text-ellipsis;
+}
+
+.stats {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-top: 4rpx;
+  white-space: nowrap;
+}
+
+.pointsArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: $spacing-sm;
+}
+
+.points {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-gold-dark;
+}
+
+.pointsLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}

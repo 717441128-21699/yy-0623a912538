@@ -1,0 +1,172 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.customerName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.progress {
+  background: rgba(0, 201, 167, 0.1);
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+}
+
+.progressText {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+.delayBanner {
+  display: flex;
+  align-items: flex-start;
+  background: rgba(255, 107, 107, 0.08);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.delayIcon {
+  font-size: $font-size-lg;
+  margin-right: $spacing-sm;
+}
+
+.delayContent {
+  flex: 1;
+}
+
+.delayTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-accent;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.delayReason {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.scriptBox {
+  background: rgba(255, 217, 61, 0.1);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.scriptLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-gold-dark;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.scriptText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.stepDone {
+  background: rgba(0, 201, 167, 0.06);
+}
+
+.stepCheck {
+  width: 36rpx;
+  height: 36rpx;
+  min-width: 36rpx;
+  border-radius: $radius-round;
+  border: 3rpx solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-sm;
+  transition: all $transition-base;
+}
+
+.stepCheckDone {
+  background: $color-primary;
+  border-color: $color-primary;
+}
+
+.stepCheckMark {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  font-weight: $font-weight-bold;
+}
+
+.stepIcon {
+  font-size: $font-size-md;
+  margin-right: $spacing-sm;
+}
+
+.stepTitle {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  flex: 1;
+}
+
+.stepDone .stepTitle {
+  color: $color-text-disabled;
+  text-decoration: line-through;
+}
+
+.completedBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $spacing-md;
+  padding: $spacing-md;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-md;
+}
+
+.completedIcon {
+  font-size: $font-size-lg;
+  margin-right: $spacing-sm;
+}
+
+.completedText {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-white;
+}

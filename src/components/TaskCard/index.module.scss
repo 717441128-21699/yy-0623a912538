@@ -1,0 +1,153 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.equipmentTag {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.statusBadge {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.statusCompleted {
+  background: rgba(0, 180, 42, 0.1);
+  color: $color-success;
+}
+
+.statusInProgress {
+  background: rgba(0, 201, 167, 0.1);
+  color: $color-primary;
+}
+
+.statusPending {
+  background: rgba(148, 163, 184, 0.15);
+  color: $color-text-tertiary;
+}
+
+.statusOvertime {
+  background: rgba(255, 107, 107, 0.1);
+  color: $color-accent;
+}
+
+.cardBody {
+  margin-bottom: $spacing-md;
+}
+
+.customerInfo {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: $spacing-sm;
+}
+
+.customerName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-right: $spacing-sm;
+}
+
+.treatmentArea {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.timeInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.time {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.duration {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  background: $color-bg-page;
+  padding: 2rpx 12rpx;
+  border-radius: $radius-round;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: $spacing-md;
+  border-top: 1rpx solid $color-divider;
+}
+
+.checkItems {
+  display: flex;
+  gap: $spacing-md;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  opacity: 0.5;
+}
+
+.checked {
+  opacity: 1;
+}
+
+.checkIcon {
+  font-size: $font-size-sm;
+  color: $color-primary;
+}
+
+.checkLabel {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  white-space: nowrap;
+}
+
+.nextColleague {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.nextLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.nextName {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}

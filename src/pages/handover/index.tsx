@@ -7,9 +7,12 @@ import styles from './index.module.scss';
 
 type TabType = 'pending' | 'completed'
 
+const HIGH_ENERGY_THRESHOLD = 4.0
+
 const HandoverPage: React.FC = () => {
   const { handovers, tasks, toggleHandoverStep } = useAppStore()
   const [tab, setTab] = useState<TabType>('pending')
+  const [showReview, setShowReview] = useState(false)
 
   const pendingHandovers = useMemo(
     () => handovers.filter(h => !h.isCompleted),
@@ -23,10 +26,48 @@ const HandoverPage: React.FC = () => {
 
   const displayList = tab === 'pending' ? pendingHandovers : completedHandovers
 
-  const completedTasksWithEnergy = useMemo(
+  const tasksWithEnergy = useMemo(
     () => tasks.filter(t => t.energyLevel && t.status !== 'pending'),
     [tasks]
   )
+
+  const tasksMissingEnergy = useMemo(
+    () => tasks.filter(t => t.status !== 'pending' && !t.energyLevel),
+    [tasks]
+  )
+
+  const equipmentGroups = useMemo(() => {
+    const map = new Map<string, { equipment: string; records: { customer: string; energy: string; taskId: string; isHigh: boolean }[] }>()
+    tasksWithEnergy.forEach(t => {
+      const energyNum = parseFloat(t.energyLevel)
+      const isHigh = !isNaN(energyNum) && energyNum >= HIGH_ENERGY_THRESHOLD
+      if (!map.has(t.equipment)) {
+        map.set(t.equipment, { equipment: t.equipment, records: [] })
+      }
+      map.get(t.equipment)!.records.push({
+        customer: t.customerName,
+        energy: t.energyLevel,
+        taskId: t.id,
+        isHigh
+      })
+    })
+    return Array.from(map.values())
+  }, [tasksWithEnergy])
+
+  const duplicateWarnings = useMemo(() => {
+    const seen = new Map<string, string[]>()
+    tasksWithEnergy.forEach(t => {
+      const key = `${t.equipment}_${t.energyLevel}`
+      if (!seen.has(key)) seen.set(key, [])
+      seen.get(key)!.push(t.customerName)
+    })
+    return Array.from(seen.entries())
+      .filter(([, names]) => names.length > 1)
+      .map(([key, names]) => {
+        const [equipment, energy] = key.split('_')
+        return { equipment, energy, customers: names }
+      })
+  }, [tasksWithEnergy])
 
   return (
     <View className={styles.container}>
@@ -35,18 +76,74 @@ const HandoverPage: React.FC = () => {
         <Text className={styles.subtitle}>完成治疗后按步骤交接</Text>
       </View>
 
-      {completedTasksWithEnergy.length > 0 && (
+      {tasksWithEnergy.length > 0 && (
         <View className={styles.energySection}>
-          <Text className={styles.energyTitle}>⚡ 今日能量记录</Text>
-          <View className={styles.energyGrid}>
-            {completedTasksWithEnergy.map(task => (
-              <View key={task.id} className={styles.energyItem}>
-                <Text className={styles.energyEquipment}>{task.equipment}</Text>
-                <Text className={styles.energyValue}>{task.energyLevel}</Text>
-                <Text className={styles.energyCustomer}>{task.customerName}</Text>
-              </View>
-            ))}
+          <View className={styles.energyHeader}>
+            <Text className={styles.energyTitle}>⚡ 今日能量记录</Text>
+            <View
+              className={classnames(styles.reviewToggle, showReview && styles.reviewToggleActive)}
+              onClick={() => setShowReview(!showReview)}
+            >
+              <Text className={styles.reviewToggleText}>{showReview ? '收起复盘' : '📊 复盘'}</Text>
+            </View>
           </View>
+
+          {showReview ? (
+            <View className={styles.reviewPanel}>
+              {equipmentGroups.map(group => (
+                <View key={group.equipment} className={styles.reviewGroup}>
+                  <Text className={styles.reviewGroupTitle}>{group.equipment}</Text>
+                  {group.records.map((rec, idx) => (
+                    <View key={idx} className={classnames(styles.reviewRecord, rec.isHigh && styles.reviewHigh)}>
+                      <Text className={styles.reviewCustomer}>{rec.customer}</Text>
+                      <Text className={classnames(styles.reviewEnergy, rec.isHigh && styles.reviewEnergyHigh)}>
+                        {rec.energy}
+                      </Text>
+                      {rec.isHigh && <Text className={styles.reviewWarnTag}>偏高</Text>}
+                    </View>
+                  ))}
+                </View>
+              ))}
+
+              {duplicateWarnings.length > 0 && (
+                <View className={styles.reviewWarning}>
+                  <Text className={styles.reviewWarningTitle}>🔄 疑似重复</Text>
+                  {duplicateWarnings.map((w, idx) => (
+                    <Text key={idx} className={styles.reviewWarningText}>
+                      {w.equipment} 档位 {w.energy} 出现 {w.customers.length} 次（{w.customers.join('、')}）
+                    </Text>
+                  ))}
+                </View>
+              )}
+
+              {tasksMissingEnergy.length > 0 && (
+                <View className={styles.reviewWarning}>
+                  <Text className={styles.reviewWarningTitle}>⚠️ 待补录</Text>
+                  {tasksMissingEnergy.map(t => (
+                    <Text key={t.id} className={styles.reviewWarningText}>
+                      {t.customerName} · {t.equipment}（{t.treatmentArea}）
+                    </Text>
+                  ))}
+                </View>
+              )}
+
+              {tasksMissingEnergy.length === 0 && duplicateWarnings.length === 0 && (
+                <View className={styles.reviewAllGood}>
+                  <Text className={styles.reviewAllGoodText}>✅ 今日能量记录完整，无异常</Text>
+                </View>
+              )}
+            </View>
+          ) : (
+            <View className={styles.energyGrid}>
+              {tasksWithEnergy.map(task => (
+                <View key={task.id} className={styles.energyItem}>
+                  <Text className={styles.energyEquipment}>{task.equipment}</Text>
+                  <Text className={styles.energyValue}>{task.energyLevel}</Text>
+                  <Text className={styles.energyCustomer}>{task.customerName}</Text>
+                </View>
+              ))}
+            </View>
+          )}
         </View>
       )}
 

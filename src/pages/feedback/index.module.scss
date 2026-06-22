@@ -52,6 +52,91 @@
   border-color: $color-primary;
 }
 
+.statusFilterRow {
+  display: flex;
+  gap: $spacing-xs;
+  padding: 0 $spacing-lg;
+  margin-bottom: $spacing-md;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.statusBtn {
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  background: transparent;
+  white-space: nowrap;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.statusBtnActive {
+  background: rgba(0, 201, 167, 0.08);
+  border-color: rgba(0, 201, 167, 0.3);
+  color: $color-primary;
+}
+
+.followUpTag {
+  padding: 4rpx 14rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.statusUnhandled {
+  background: rgba(255, 107, 107, 0.1);
+  color: $color-accent;
+}
+
+.statusFollowed {
+  background: rgba(255, 215, 61, 0.12);
+  color: $color-warning;
+}
+
+.statusProcessing {
+  background: rgba(0, 201, 167, 0.1);
+  color: $color-primary;
+}
+
+.statusResolved {
+  background: rgba(0, 180, 42, 0.08);
+  color: $color-success;
+}
+
+.feedbackCardHighlight {
+  box-shadow: 0 0 0 4rpx rgba(0, 201, 167, 0.4), $shadow-card;
+}
+
+.footerLeft {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex: 1;
+}
+
+.statusActionBtn {
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+  background: rgba(0, 201, 167, 0.08);
+  border: 2rpx solid rgba(0, 201, 167, 0.2);
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+}
+
 .list {
   flex: 1;
   padding: 0 $spacing-lg;

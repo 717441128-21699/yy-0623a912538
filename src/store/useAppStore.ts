@@ -28,6 +28,7 @@ interface AppState {
   publishSwap: (data: { shiftDate: string; shiftTime: string; equipment: string; reason: string; points: number }) => void
   publishFeedback: (data: { content: string; category: 'praise' | 'suggestion' | 'issue' }) => void
   likeFeedback: (id: string) => void
+  updateFeedbackStatus: (id: string, status: FeedbackItem['followUpStatus']) => void
 }
 
 const initialFeedbacks: FeedbackItem[] = mockFeedbacks
@@ -221,7 +222,8 @@ export const useAppStore = create<AppState>((set, get) => ({
       category: data.category,
       createdAt,
       likes: 0,
-      likedByMe: false
+      likedByMe: false,
+      followUpStatus: data.category === 'issue' ? 'unhandled' : 'resolved'
     }
     set({ feedbacks: [newFeedback, ...state.feedbacks] })
   },
@@ -235,6 +237,14 @@ export const useAppStore = create<AppState>((set, get) => ({
         }
         return { ...f, likes: f.likes + 1, likedByMe: true }
       })
+    }))
+  },
+
+  updateFeedbackStatus: (id, status) => {
+    set((state) => ({
+      feedbacks: state.feedbacks.map(f =>
+        f.id === id ? { ...f, followUpStatus: status } : f
+      )
     }))
   }
 }))

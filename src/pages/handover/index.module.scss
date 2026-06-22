@@ -75,12 +75,134 @@
   box-shadow: $shadow-card;
 }
 
+.energyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
 .energyTitle {
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
   color: $color-text-primary;
+}
+
+.reviewToggle {
+  padding: 6rpx 20rpx;
+  border-radius: $radius-round;
+  background: $color-bg-page;
+  border: 2rpx solid $color-border;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.reviewToggleActive {
+  background: rgba(0, 201, 167, 0.1);
+  border-color: $color-primary;
+}
+
+.reviewToggleText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  white-space: nowrap;
+}
+
+.reviewToggleActive .reviewToggleText {
+  color: $color-primary;
+}
+
+.reviewPanel {
+  border-top: 2rpx solid $color-border;
+  padding-top: $spacing-md;
+}
+
+.reviewGroup {
   margin-bottom: $spacing-md;
+}
+
+.reviewGroupTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
   display: block;
+}
+
+.reviewRecord {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: 10rpx 0;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.reviewHigh {
+  background: rgba(255, 107, 107, 0.06);
+  border-radius: $radius-sm;
+  padding: 10rpx $spacing-sm;
+  border-bottom-color: transparent;
+}
+
+.reviewCustomer {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  flex: 1;
+}
+
+.reviewEnergy {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.reviewEnergyHigh {
+  color: $color-accent;
+}
+
+.reviewWarnTag {
+  font-size: $font-size-xs;
+  color: $color-accent;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 4rpx 12rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.reviewWarning {
+  background: rgba(255, 215, 61, 0.08);
+  border: 2rpx solid rgba(255, 215, 61, 0.2);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.reviewWarningTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-warning;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.reviewWarningText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+  display: block;
+}
+
+.reviewAllGood {
+  text-align: center;
+  padding: $spacing-md;
+}
+
+.reviewAllGoodText {
+  font-size: $font-size-sm;
+  color: $color-primary;
 }
 
 .energyGrid {

@@ -14,11 +14,11 @@ export const mockRankings: RankItem[] = [
 ]
 
 export const mockFeedbacks: FeedbackItem[] = [
-  { id: 'f1', authorName: '小周', authorAvatar: 'https://picsum.photos/id/91/200/200', content: '今天热玛吉FLX的耦合剂备货不足，建议增加常备数量', category: 'suggestion', createdAt: '2026-06-22 10:30', likes: 5, likedByMe: false },
-  { id: 'f2', authorName: '小李', authorAvatar: 'https://picsum.photos/id/64/200/200', content: '3号治疗室的空调温度不太稳定，顾客反馈有点冷', category: 'issue', createdAt: '2026-06-22 09:15', likes: 3, likedByMe: false },
-  { id: 'f3', authorName: '小陈', authorAvatar: 'https://picsum.photos/id/177/200/200', content: '小周今天的超声刀交接特别规范，步骤齐全，给新人做了好榜样！', category: 'praise', createdAt: '2026-06-21 17:00', likes: 12, likedByMe: false },
-  { id: 'f4', authorName: '小王', authorAvatar: 'https://picsum.photos/id/338/200/200', content: '建议在治疗室增加计时提醒，避免超时影响下一单', category: 'suggestion', createdAt: '2026-06-21 15:30', likes: 8, likedByMe: false },
-  { id: 'f5', authorName: '小张', authorAvatar: 'https://picsum.photos/id/1027/200/200', content: '冷冻溶脂的耗材存放位置太远了，每次都要跑去仓库拿', category: 'issue', createdAt: '2026-06-21 11:00', likes: 6, likedByMe: false }
+  { id: 'f1', authorName: '小周', authorAvatar: 'https://picsum.photos/id/91/200/200', content: '今天热玛吉FLX的耦合剂备货不足，建议增加常备数量', category: 'suggestion', createdAt: '2026-06-22 10:30', likes: 5, likedByMe: false, followUpStatus: 'unhandled' },
+  { id: 'f2', authorName: '小李', authorAvatar: 'https://picsum.photos/id/64/200/200', content: '3号治疗室的空调温度不太稳定，顾客反馈有点冷', category: 'issue', createdAt: '2026-06-22 09:15', likes: 3, likedByMe: false, followUpStatus: 'followed' },
+  { id: 'f3', authorName: '小陈', authorAvatar: 'https://picsum.photos/id/177/200/200', content: '小周今天的超声刀交接特别规范，步骤齐全，给新人做了好榜样！', category: 'praise', createdAt: '2026-06-21 17:00', likes: 12, likedByMe: false, followUpStatus: 'resolved' },
+  { id: 'f4', authorName: '小王', authorAvatar: 'https://picsum.photos/id/338/200/200', content: '建议在治疗室增加计时提醒，避免超时影响下一单', category: 'suggestion', createdAt: '2026-06-21 15:30', likes: 8, likedByMe: false, followUpStatus: 'processing' },
+  { id: 'f5', authorName: '小张', authorAvatar: 'https://picsum.photos/id/1027/200/200', content: '冷冻溶脂的耗材存放位置太远了，每次都要跑去仓库拿', category: 'issue', createdAt: '2026-06-21 11:00', likes: 6, likedByMe: false, followUpStatus: 'unhandled' }
 ]
 
 export const mockLearningReminders: LearningReminder[] = [

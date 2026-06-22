@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import classnames from 'classnames';
@@ -15,12 +15,33 @@ const typeIconMap: Record<string, string> = {
   quiz: '📝'
 }
 
+const categoryIconMap: Record<string, string> = {
+  praise: '👍',
+  suggestion: '💡',
+  issue: '⚠️'
+}
+
+const statusLabelMap: Record<string, string> = {
+  unhandled: '待跟进',
+  followed: '已跟进',
+  processing: '处理中',
+  resolved: '已解决'
+}
+
 const RankPage: React.FC = () => {
-  const { myPoints, rankings } = useAppStore()
+  const { myPoints, rankings, feedbacks } = useAppStore()
   const [tab, setTab] = useState<TabType>('rank')
 
-  const handleFeedback = () => {
-    Taro.navigateTo({ url: '/pages/feedback/index' })
+  const recentFeedbacks = useMemo(
+    () => feedbacks.slice(0, 3),
+    [feedbacks]
+  )
+
+  const handleFeedback = (highlightId?: string) => {
+    const url = highlightId
+      ? `/pages/feedback/index?highlight=${highlightId}`
+      : '/pages/feedback/index'
+    Taro.navigateTo({ url })
   }
 
   return (
@@ -35,10 +56,37 @@ const RankPage: React.FC = () => {
           <Text className={styles.myPointsLabel}>我的积分</Text>
           <Text className={styles.myPointsValue}>{myPoints}</Text>
         </View>
-        <View className={styles.myPointsRight} onClick={handleFeedback}>
+        <View className={styles.myPointsRight} onClick={() => handleFeedback()}>
           <Text className={styles.myPointsBtnText}>反馈墙</Text>
         </View>
       </View>
+
+      {recentFeedbacks.length > 0 && (
+        <View className={styles.feedbackSummary}>
+          <View className={styles.summaryHeader}>
+            <Text className={styles.summaryTitle}>📢 最近团队反馈</Text>
+            <View className={styles.summaryMore} onClick={() => handleFeedback()}>
+              <Text style={{ fontSize: '24rpx', color: '#00C9A7' }}>查看全部 →</Text>
+            </View>
+          </View>
+          {recentFeedbacks.map(item => (
+            <View
+              key={item.id}
+              className={styles.summaryItem}
+              onClick={() => handleFeedback(item.id)}
+            >
+              <View className={styles.summaryItemLeft}>
+                <Text className={styles.summaryIcon}>{categoryIconMap[item.category]}</Text>
+                <View className={styles.summaryItemContent}>
+                  <Text className={styles.summaryItemText}>{item.content.length > 28 ? item.content.slice(0, 28) + '…' : item.content}</Text>
+                  <Text className={styles.summaryItemMeta}>{item.authorName} · {statusLabelMap[item.followUpStatus]}</Text>
+                </View>
+              </View>
+              <Text className={styles.summaryArrow}>›</Text>
+            </View>
+          ))}
+        </View>
+      )}
 
       <View className={styles.tabRow}>
         <View

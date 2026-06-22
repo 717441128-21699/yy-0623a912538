@@ -73,6 +73,96 @@
   white-space: nowrap;
 }
 
+.feedbackSummary {
+  margin: 0 $spacing-lg $spacing-md;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.summaryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.summaryTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.summaryMore {
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.summaryItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  border-bottom: 2rpx solid $color-divider;
+  transition: all $transition-base;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:active {
+    background: $color-bg-page;
+  }
+}
+
+.summaryItemLeft {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-sm;
+  min-width: 0;
+}
+
+.summaryIcon {
+  font-size: $font-size-md;
+  flex-shrink: 0;
+  line-height: 1.6;
+}
+
+.summaryItemContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.summaryItemText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summaryItemMeta {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.summaryArrow {
+  font-size: 36rpx;
+  color: $color-text-tertiary;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-left: $spacing-xs;
+}
+
 .tabRow {
   display: flex;
   padding: $spacing-md $spacing-lg;

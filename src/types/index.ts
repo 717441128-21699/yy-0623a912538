@@ -77,6 +77,7 @@ export interface FeedbackItem {
   createdAt: string;
   likes: number;
   likedByMe: boolean;
+  followUpStatus: 'unhandled' | 'followed' | 'processing' | 'resolved';
 }
 
 export interface LearningReminder {

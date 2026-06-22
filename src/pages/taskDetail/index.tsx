@@ -94,7 +94,7 @@ const TaskDetailPage: React.FC = () => {
         )}
       </View>
 
-      {task.status === 'completed' && task.energyLevel && (
+      {task.energyLevel && (
         <View className={styles.card}>
           <Text className={styles.cardTitle}>能量记录</Text>
           <View className={styles.infoRow}>

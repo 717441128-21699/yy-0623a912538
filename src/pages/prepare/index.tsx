@@ -17,7 +17,7 @@ const filterOptions: { key: FilterType; label: string }[] = [
 ]
 
 const PreparePage: React.FC = () => {
-  const { prepSteps, togglePrepStep } = useAppStore()
+  const { prepSteps, togglePrepStep, confirmPrep, prepConfirmed } = useAppStore()
   const [filter, setFilter] = useState<FilterType>('all')
 
   const filteredSteps = useMemo(() => {
@@ -35,7 +35,12 @@ const PreparePage: React.FC = () => {
       Taro.showToast({ title: '请完成所有准备步骤', icon: 'none' })
       return
     }
-    Taro.showToast({ title: '准备确认提交成功！+20积分', icon: 'success' })
+    const success = confirmPrep()
+    if (success) {
+      Taro.showToast({ title: '准备确认提交成功！+20积分', icon: 'success' })
+    } else if (prepConfirmed) {
+      Taro.showToast({ title: '今日已确认过准备工作啦', icon: 'none' })
+    }
   }
 
   return (
@@ -86,7 +91,7 @@ const PreparePage: React.FC = () => {
           className={classnames(styles.submitBtn, !allDone && styles.submitDisabled)}
           onClick={handleSubmit}
         >
-          <Text className={styles.submitBtnText}>{allDone ? '确认提交' : '未完成'}</Text>
+          <Text className={styles.submitBtnText}>{prepConfirmed ? '已确认' : (allDone ? '确认提交' : '未完成')}</Text>
         </View>
       </View>
     </View>

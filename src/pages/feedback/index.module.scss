@@ -2,12 +2,13 @@
 
 .container {
   min-height: 100vh;
-  padding: $spacing-lg;
-  padding-bottom: 200rpx;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-  margin-bottom: $spacing-lg;
+  padding: $spacing-lg;
+  padding-top: $spacing-md;
 }
 
 .title {
@@ -26,6 +27,7 @@
 .filterRow {
   display: flex;
   gap: $spacing-sm;
+  padding: 0 $spacing-lg;
   margin-bottom: $spacing-md;
 }
 
@@ -51,9 +53,9 @@
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-md;
+  flex: 1;
+  padding: 0 $spacing-lg;
+  height: calc(100vh - 420rpx);
 }
 
 .feedbackCard {
@@ -61,6 +63,7 @@
   border-radius: $radius-lg;
   padding: $spacing-lg;
   box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
 }
 
 .feedbackHeader {
@@ -128,14 +131,19 @@
   display: flex;
   align-items: center;
   gap: 6rpx;
-  padding: 8rpx 16rpx;
+  padding: 8rpx 20rpx;
   border-radius: $radius-round;
   background: $color-bg-page;
   transition: all $transition-base;
 
   &:active {
     opacity: 0.8;
+    transform: scale(0.95);
   }
+}
+
+.likedBtn {
+  background: rgba(255, 107, 107, 0.1);
 }
 
 .likeIcon {
@@ -145,6 +153,10 @@
 .likeCount {
   font-size: $font-size-sm;
   color: $color-text-secondary;
+}
+
+.likedBtn .likeCount {
+  color: $color-accent;
 }
 
 .bottomBar {
@@ -157,7 +169,29 @@
   background: $color-bg-card;
   box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
   display: flex;
-  gap: $spacing-md;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.categoryBtn {
+  @include button-reset;
+  height: $button-height-md;
+  padding: 0 $spacing-md;
+  background: $color-bg-page;
+  border-radius: $radius-round;
+  border: 2rpx solid $color-border;
+  transition: all $transition-base;
+  flex-shrink: 0;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.categoryBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  white-space: nowrap;
 }
 
 .inputArea {
@@ -165,14 +199,17 @@
   height: $button-height-md;
   background: $color-bg-page;
   border-radius: $radius-round;
+  border: 2rpx solid $color-border;
+  padding: 0 $spacing-md;
   display: flex;
   align-items: center;
-  padding: 0 $spacing-lg;
+  min-width: 0;
 }
 
-.inputPlaceholder {
+.inputField {
+  width: 100%;
   font-size: $font-size-md;
-  color: $color-text-disabled;
+  color: $color-text-primary;
 }
 
 .sendBtn {
@@ -180,9 +217,9 @@
   height: $button-height-md;
   padding: 0 32rpx;
   background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
-  border-radius: $radius-button;
+  border-radius: $radius-round;
   border: none;
-  transition: all $transition-base;
+  flex-shrink: 0;
 
   &:active {
     opacity: 0.9;
@@ -194,4 +231,41 @@
   color: $color-text-white;
   font-weight: $font-weight-semibold;
   white-space: nowrap;
+}
+
+.pickerMask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: flex;
+  align-items: flex-end;
+}
+
+.pickerPanel {
+  width: 100%;
+  background: $color-bg-card;
+  border-radius: $radius-xl $radius-xl 0 0;
+  padding: $spacing-md $spacing-lg;
+  padding-bottom: calc($spacing-md + env(safe-area-inset-bottom));
+}
+
+.pickerItem {
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  color: $color-text-primary;
+  transition: all $transition-base;
+
+  &:active {
+    background: $color-bg-page;
+  }
+}
+
+.pickerItemActive {
+  background: rgba(0, 201, 167, 0.1);
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
 }

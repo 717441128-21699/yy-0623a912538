@@ -12,6 +12,9 @@ export interface TaskItem {
   endTime: string;
   energyLevel: string;
   nextColleague: string;
+  delayMinutes?: number;
+  delayReason?: string;
+  delayScript?: string;
 }
 
 export interface PrepStep {
@@ -31,6 +34,7 @@ export interface HandoverItem {
   delayMinutes: number;
   delayReason: string;
   delayScript: string;
+  energyInput: string;
 }
 
 export interface HandoverStep {
@@ -72,6 +76,7 @@ export interface FeedbackItem {
   category: 'praise' | 'suggestion' | 'issue';
   createdAt: string;
   likes: number;
+  likedByMe: boolean;
 }
 
 export interface LearningReminder {

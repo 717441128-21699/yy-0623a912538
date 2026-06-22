@@ -59,7 +59,10 @@ export const mockTasks: TaskItem[] = [
     startTime: '13:30',
     endTime: '14:30',
     energyLevel: '',
-    nextColleague: '小周'
+    nextColleague: '小周',
+    delayMinutes: 15,
+    delayReason: '顾客对溶脂效果有额外疑问，需延长咨询时间',
+    delayScript: '您好，C.Y.的治疗稍有延迟，预计还需15分钟。您可以先帮下位顾客做皮肤检测，我完成后第一时间通知您。'
   },
   {
     id: 't5',

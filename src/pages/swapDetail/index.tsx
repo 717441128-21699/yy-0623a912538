@@ -21,8 +21,12 @@ const SwapDetailPage: React.FC = () => {
   }
 
   const handleAccept = () => {
-    takeSwap(swap.id, '小李')
-    Taro.showToast({ title: '接单成功！+30积分', icon: 'success' })
+    const success = takeSwap(swap.id, '小李')
+    if (success) {
+      Taro.showToast({ title: `接单成功！+${swap.points}积分`, icon: 'success' })
+    } else {
+      Taro.showToast({ title: '此换班已被接走啦', icon: 'none' })
+    }
     setTimeout(() => Taro.navigateBack(), 1500)
   }
 

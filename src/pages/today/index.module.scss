@@ -84,6 +84,12 @@
   display: flex;
   align-items: center;
   margin-bottom: $spacing-md;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+    transform: scale(0.99);
+  }
 }
 
 .alertIcon {
@@ -105,6 +111,16 @@
 .alertDesc {
   font-size: $font-size-sm;
   color: $color-text-secondary;
+}
+
+.alertArrow {
+  font-size: 40rpx;
+  color: $color-accent;
+  line-height: 1;
+}
+
+.statOvertime {
+  background: rgba(255, 107, 107, 0.3);
 }
 
 .taskList {
@@ -140,4 +156,173 @@
 .floatBtnText {
   font-size: $font-size-xxl;
   color: $color-text-white;
+}
+
+.modalMask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+}
+
+.modalPanel {
+  width: 100%;
+  max-height: 85vh;
+  background: $color-bg-card;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 215, 61, 0.1) 100%);
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.modalIcon {
+  font-size: $font-size-xxl;
+}
+
+.modalTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.delayList {
+  padding: $spacing-md $spacing-lg;
+  overflow-y: auto;
+  flex: 1;
+  max-height: 55vh;
+}
+
+.delayCard {
+  background: $color-bg-page;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+  border: 2rpx solid rgba(255, 107, 107, 0.15);
+}
+
+.delayCustomer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.delayName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.delayBadge {
+  background: rgba(255, 107, 107, 0.12);
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+}
+
+.delayBadgeText {
+  font-size: $font-size-xs;
+  color: $color-accent;
+  font-weight: $font-weight-semibold;
+}
+
+.delaySection {
+  margin-bottom: $spacing-md;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.delaySectionLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.delaySectionText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: $line-height-loose;
+  white-space: pre-line;
+}
+
+.scriptBox {
+  background: rgba(0, 201, 167, 0.06);
+  border: 2rpx solid rgba(0, 201, 167, 0.15);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+}
+
+.scriptText {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  line-height: $line-height-loose;
+  white-space: pre-line;
+}
+
+.modalFooter {
+  padding: $spacing-md $spacing-lg;
+  padding-bottom: calc($spacing-md + env(safe-area-inset-bottom));
+  background: $color-bg-card;
+  border-top: 2rpx solid $color-border;
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.modalPrimaryBtn {
+  flex: 1;
+  height: $button-height-md;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+.modalPrimaryBtnText {
+  font-size: $font-size-md;
+  color: $color-text-white;
+  font-weight: $font-weight-semibold;
+}
+
+.modalCloseBtn {
+  height: $button-height-md;
+  padding: 0 $spacing-lg;
+  background: $color-bg-page;
+  border-radius: $radius-round;
+  border: 2rpx solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.modalCloseBtnText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
 }

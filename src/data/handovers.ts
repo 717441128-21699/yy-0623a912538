@@ -14,7 +14,8 @@ export const mockHandovers: HandoverItem[] = [
     isCompleted: true,
     delayMinutes: 0,
     delayReason: '',
-    delayScript: ''
+    delayScript: '',
+    energyInput: '3.0'
   },
   {
     id: 'h2',
@@ -29,7 +30,8 @@ export const mockHandovers: HandoverItem[] = [
     isCompleted: false,
     delayMinutes: 0,
     delayReason: '',
-    delayScript: ''
+    delayScript: '',
+    energyInput: ''
   },
   {
     id: 'h3',
@@ -44,7 +46,8 @@ export const mockHandovers: HandoverItem[] = [
     isCompleted: false,
     delayMinutes: 15,
     delayReason: '顾客对溶脂效果有额外疑问，需延长咨询时间',
-    delayScript: '您好，C.Y.的治疗稍有延迟，预计还需15分钟。您可以先帮下位顾客做皮肤检测，我完成后第一时间通知您。'
+    delayScript: '您好，C.Y.的治疗稍有延迟，预计还需15分钟。您可以先帮下位顾客做皮肤检测，我完成后第一时间通知您。',
+    energyInput: ''
   },
   {
     id: 'h4',
@@ -59,7 +62,8 @@ export const mockHandovers: HandoverItem[] = [
     isCompleted: true,
     delayMinutes: 0,
     delayReason: '',
-    delayScript: ''
+    delayScript: '',
+    energyInput: '3.5'
   },
   {
     id: 'h5',
@@ -74,6 +78,7 @@ export const mockHandovers: HandoverItem[] = [
     isCompleted: false,
     delayMinutes: 0,
     delayReason: '',
-    delayScript: ''
+    delayScript: '',
+    energyInput: ''
   }
 ]

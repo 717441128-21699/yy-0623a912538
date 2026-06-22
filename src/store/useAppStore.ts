@@ -30,8 +30,8 @@ interface AppState {
   likeFeedback: (id: string) => void
 }
 
-const initialFeedbacks: FeedbackItem[] = mockFeedbacks.map(f => ({ ...f, likedByMe: false }))
-const initialHandovers: HandoverItem[] = mockHandovers.map(h => ({ ...h, energyInput: '' }))
+const initialFeedbacks: FeedbackItem[] = mockFeedbacks
+const initialHandovers: HandoverItem[] = mockHandovers
 
 const syncRankings = (rankings: RankItem[], myPoints: number): RankItem[] =>
   rankings.map(r => r.name === '小李' ? { ...r, points: myPoints } : r)

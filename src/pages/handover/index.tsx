@@ -24,7 +24,7 @@ const HandoverPage: React.FC = () => {
   const displayList = tab === 'pending' ? pendingHandovers : completedHandovers
 
   const completedTasksWithEnergy = useMemo(
-    () => tasks.filter(t => t.status === 'completed' && t.energyLevel),
+    () => tasks.filter(t => t.energyLevel && t.status !== 'pending'),
     [tasks]
   )
 
